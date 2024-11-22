@@ -1,7 +1,7 @@
 import { Mdx } from '@/components/mdx';
 import { Sidebar } from '@/components/sidebar';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
-import { env } from '@repo/env';
+import { constructUrl } from '@repo/next-config/utils';
 import { type BlogPosting, JsonLd, type WithContext } from '@repo/seo/json-ld';
 import { createMetadata } from '@repo/seo/metadata';
 import { allPosts } from 'content-collections';
@@ -54,10 +54,7 @@ const BlogPost = async ({ params }: BlogPostProperties) => {
     description: page.description,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': new URL(
-        `/blog/${slug}`,
-        env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
-      ).toString(),
+      '@id': constructUrl(`/blog/${slug}`).href,
     },
     headline: page.title,
     image: page.image,
